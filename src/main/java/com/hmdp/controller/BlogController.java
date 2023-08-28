@@ -10,6 +10,7 @@ import com.hmdp.service.IBlogService;
 import com.hmdp.service.IUserService;
 import com.hmdp.utils.SystemConstants;
 import com.hmdp.utils.UserHolder;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -53,6 +54,7 @@ public class BlogController {
 
     @GetMapping("/of/me")
     public Result queryMyBlog(@RequestParam(value = "current", defaultValue = "1") Integer current) {
+
         // 获取登录用户
         UserDTO user = UserHolder.getUser();
         // 根据用户查询
