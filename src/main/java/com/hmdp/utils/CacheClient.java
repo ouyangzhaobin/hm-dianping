@@ -88,16 +88,16 @@ public class CacheClient {
     public <R,ID> R queryWithLogicalExpire(String keyPrefix,ID id, Class<R> type,Function<ID,R> dbFallback,Long time, TimeUnit unit ){
         String key = keyPrefix + id;
         // 1.从redis查询商铺缓存
-        String shopJson = stringRedisTemplate.opsForValue().get(key);
+        String json = stringRedisTemplate.opsForValue().get(key);
 
         // 2.判断redis中是否存在
-        if (StrUtil.isBlank(shopJson)) {
+        if (StrUtil.isBlank(json)) {
             // 3.不存在,返回空值
             return null;
         }
 
         // 4.命中,需要先把json反序列化为对象
-        RedisData redisData = JSONUtil.toBean(shopJson, RedisData.class);
+        RedisData redisData = JSONUtil.toBean(json, RedisData.class);
         R r = JSONUtil.toBean((JSONObject) redisData.getData(),type);
         LocalDateTime expireTime = redisData.getExpireTime();
 
