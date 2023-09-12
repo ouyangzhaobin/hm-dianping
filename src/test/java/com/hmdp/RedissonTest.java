@@ -17,17 +17,30 @@ class RedissonTest {
     @Resource
     private RedissonClient redissonClient;
 
+    @Resource
+    private RedissonClient redissonClient2;
+
+    @Resource
+    private RedissonClient redissonClient3;
     private RLock lock;
 
     @BeforeEach
     void setUp() {
+        RLock lock1 = redissonClient.getLock("order");
+        RLock lock2 = redissonClient2.getLock("order");
+        RLock lock3 = redissonClient3.getLock("order");
+
+
         lock = redissonClient.getLock("order");
+        // 创建联锁 multiLock
+        // lock = redissonClient.getMultiLock(lock1,lock2,lock3);
+
     }
 
     @Test
     void method1() throws InterruptedException {
         // 尝试获取锁
-        boolean isLock = lock.tryLock();
+        boolean isLock = lock.tryLock(1L, TimeUnit.SECONDS);
         // boolean isLock = lock.tryLock(10L, TimeUnit.MINUTES);
         if (!isLock) {
             log.error("获取锁失败 .... 1");
@@ -57,4 +70,6 @@ class RedissonTest {
             lock.unlock();
         }
     }
+
+
 }

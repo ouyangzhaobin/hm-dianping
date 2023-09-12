@@ -48,7 +48,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
 
         // 3.如果符合，生成验证码
-        String code = RandomUtil.randomNumbers(6);
+        // String code = RandomUtil.randomNumbers(6);
+        String code = "123456";
 
         // 4.保存验证码到redis
         stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY + phone,code,LOGIN_CODE_TTL, TimeUnit.MINUTES);
