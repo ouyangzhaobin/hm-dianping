@@ -28,6 +28,7 @@ redis.call('incrby', stockKey, -1)
 -- 3.5.下单（保存用户）sadd orderKey userId
 redis.call('sadd', orderKey, userId)
 -- 3.6.发送消息到队列中， XADD stream.orders * k1 v1 k2 v2 ...
--- 有bug!
+-- 若在redis中不创建消息队列有bug!（XGROUP CREATE stream.order g1 0 MKSTREAM）
 -- redis.call('xadd', 'stream.orders', '*', 'userId', userId, 'voucherId', voucherId, 'id', orderId)
+redis.call('xadd', 'stream.orders', '*', 'userId', userId, 'voucherId', voucherId, 'id', orderId)
 return 0
