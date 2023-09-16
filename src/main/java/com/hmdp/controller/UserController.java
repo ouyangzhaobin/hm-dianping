@@ -95,4 +95,15 @@ public class UserController {
         // 返回
         return Result.ok(userDTO);
     }
+
+    @GetMapping("/sign")
+    public Result sign(){
+        return userService.sign();
+    }
+
+    @GetMapping("/sign/count")
+    public Result signCount(){
+        return userService.signCount();
+    }
+
 }
