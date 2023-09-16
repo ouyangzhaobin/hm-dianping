@@ -113,6 +113,9 @@ class HmDianPingApplicationTests {
         Long count = stringRedisTemplate.opsForHyperLogLog().size("hl2");
         System.out.println("count = " + count);
     }
+    // used_memory:1191208
+    // used_memory:1207016
+    // 1207016-1191208=15808--->15kb
 
 
 
